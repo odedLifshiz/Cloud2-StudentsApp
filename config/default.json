@@ -1,0 +1,23 @@
+{
+	"useMySqlAsDatabae" : "true",
+	"mysql": {
+		"host"     : "students.cz3czispxv4v.us-east-1.rds.amazonaws.com",
+		"port"	 : "3306",
+		"user"     : "oded",
+		"password" : "12345678",
+		"database" : "students",
+		"table"    : "students"
+	},
+	"awsCredentials": {
+		"key": "AKIAJ7M3ISFRCFR62M3A",
+		"secret": "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"
+	},
+	"awsS3Url": "http://dc7c65y91fwx6.cloudfront.net",
+	"awsCloudFrontUrl": "http://dmkk8c97n768f.cloudfront.net",
+	"awsS3Bucket": "cloud2students",
+	"awsRegion": "us-east-1",
+	"redis": {
+    	"port": "6379",
+    	"host": "students.ny9daq.0001.use1.cache.amazonaws.com"
+    }
+}

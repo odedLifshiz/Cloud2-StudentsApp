@@ -1,0 +1,126 @@
+<div class="alert alert-error" ng-show="error">{{errorMessage}}</div>
+
+<form class="form-horizontal">
+    <div class="control-group col-span4">
+        <div class="controls">
+            <input class="btn" type="button" ng-click="fetchList()" value="Refresh"/>
+        </div>
+    </div>
+    <div class="control-group col-span4">
+        <label class="control-label">Filter By:</label>
+        <div class="controls">
+            <select name="Filter By:" ng-model="filterBy" ng-change='fetchList'>
+                <option value="">None</option>
+                <option value='city'>City</option>
+                <option value='faculty'>Faculty</option>
+            </select>
+        </div>
+    </div>
+    <div class="control-group col-span4" ng-show="filterBy == 'faculty' || filterBy == 'city'">
+        <div class="controls">
+            <input type="text" ng-model="filterText" placeholder="filter text" />
+        </div>
+    </div>
+</form>
+
+<br /><br />
+<hr />
+
+<form class="form-horizontal">
+    <div class="control-group">
+        <label class="control-label" for="student_country">Country:</label>
+        <div class="controls">
+            <input type="text" id="student_country" ng-model="student.country" placeholder="country">
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="student_city">City:</label>
+        <div class="controls">
+            <input type="text" id="student_city" ng-model="student.city" placeholder="city">
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="student_name">Name:</label>
+        <div class="controls">
+            <input type="text" id="student_name" ng-model="student.name" placeholder="Israel Israeli">
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="student_age">Age:</label>
+        <div class="controls">
+            <input type="text" id="student_age" ng-model="student.age" placeholder="25">
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="student_Faculty">Faculty:</label>
+        <div class="controls">
+            <input type="text" id="student_faculty" ng-model="student.faculty" placeholder="CS">
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="student_photo">Photo:</label>
+        <div class="controls">
+            <input type="file" id="student_photo" fileread="student.photo">
+        </div>
+    </div>
+
+    <div class="control-group">
+        <hr/>
+        <div class="controls">
+            <button type="button" class="btn btn-primary"
+                    ng-disabled="!student.name" ng-hide="editMode"
+                    ng-click="addStudent(student)">Add Student
+            </button>
+            <button type="button" class="btn btn-primary"
+                    ng-show="editMode"
+                    ng-click="updateStudent(student)">Save Student
+            </button>
+            <button type="button" class="btn" ng-click="resetForm()">Reset</button>
+        </div>
+    </div>
+</form>
+
+<div class="alert alert-block alert-error notification" data-ng-show="deleteNotification">
+    <h6>Are you sure?</h6>
+
+    <div class="form-controls-alert">
+        <a href="" class="btn" data-ng-click="showDeleteNotification(false)">No</a>
+        <a href="" class="btn btn-danger" data-ng-click="remove(deleteItem)">Yes</a>
+    </div>
+</div>
+
+<hr/>
+<h3>Students List</h3>
+<div class="alert alert-info" ng-show="studentsList.length == 0">No students found</div>
+<table class="table table-bordered table-striped" ng-show="studentsList.length > 0">
+    <thead>
+    <tr>
+        <th style="text-align: center;">Id</th>
+        <th style="text-align: center;">Country</th>
+        <th style="text-align: center;">City</th>
+        <th style="text-align: center;">Name</th>
+        <th style="text-align: center;">Age</th>
+        <th style="text-align: center;">Faculty</th>
+        <th style="text-align: center;">Creation Date</th>
+        <th style="text-align: center;">Photo</th>
+		<th style="text-align: center;">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="item in studentsList | orderBy:predicate">
+        <td style="text-align: center;">{{item.id}}</td>
+        <td>{{item.country}}</td>
+        <td>{{item.city}}</td>
+        <td>{{item.name}}</td>
+        <td>{{item.age}}</td>
+        <td>{{item.faculty}}</td>
+        <td>{{item.creationDate | date:'yyyy-MM-dd'}}</td>
+        <td><img width="300px" ng-src="{{item.photo}}" /></td>
+        <td style="width: 100px; text-align: center;">
+            <button class="btn btn-mini btn-danger" data-ng-click="showDeleteNotification(true, item)">Remove
+            </button>
+            <button class="btn btn-mini btn-success" ng-click="editStudent(item)">Edit</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
